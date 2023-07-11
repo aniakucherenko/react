@@ -5,13 +5,22 @@ import { Flex, FlexContainer, StyledButton, StyledCounter } from './Counter.styl
 
 export class Counter extends Component {
     state = {
-      counter: 10
+      counter: 0,
+      step:1,
+      inputValue: 1, 
+  }
+
+  handleChangeStep = step => {
+    
   }
 increment = () => {
-  this.setState({counter: this.state.counter +1})
-}
+  // this.setState({counter: this.state.counter +1})
+this.setState(prevState => ({counter: prevState.counter +prevState.step}))
+
+}  
 decrement = () => {
-  this.setState({counter: this.state.counter -1})
+  // this.setState({counter: this.state.counter -1})
+  this.setState(prevState => ({counter: prevState.counter -1}))
 }
 
 reset = () => {
@@ -22,6 +31,10 @@ reset = () => {
     return (
       <FlexContainer>
         <StyledCounter>
+          <div>
+            <input type="text" />
+            <button>Change step</button>
+          </div>
           <h1>{this.state.counter}</h1>
           <Flex>
             <StyledButton onClick={this.decrement}>minus</StyledButton>
