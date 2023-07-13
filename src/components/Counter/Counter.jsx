@@ -6,12 +6,12 @@ import { Flex, FlexContainer, StyledButton, StyledCounter } from './Counter.styl
 export class Counter extends Component {
     state = {
       counter: 0,
-      step:1,
+      step:10,
       inputValue: 1, 
   }
 
-  handleChangeStep = step => {
-    
+  handleChangeStep = stepValue => {
+    this.setState({ step: +stepValue })
   }
 increment = () => {
   // this.setState({counter: this.state.counter +1})
@@ -20,11 +20,11 @@ this.setState(prevState => ({counter: prevState.counter +prevState.step}))
 }  
 decrement = () => {
   // this.setState({counter: this.state.counter -1})
-  this.setState(prevState => ({counter: prevState.counter -1}))
+  this.setState(prevState => ({counter: prevState.counter -prevState.step}))
 }
 
 reset = () => {
-  this.setState({counter:0})
+  this.setState({counter:0, step:1})
 }
  
   render() {
@@ -32,7 +32,7 @@ reset = () => {
       <FlexContainer>
         <StyledCounter>
           <div>
-            <input type="text" />
+            <input type="text" name='step'onChange={e => this.handleChangeStep(e.target.value)} />
             <button>Change step</button>
           </div>
           <h1>{this.state.counter}</h1>
