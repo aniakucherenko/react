@@ -15,12 +15,12 @@ export class ColorPicker extends Component {
         const {colors} = this.state
         const {currentColor } = this.state
         return (
-            <StyledBackgroundTheme>
+            <StyledBackgroundTheme bgColor={currentColor} >
                 <h1>Current color: {currentColor}</h1>
                 <StyledColorPalette>
                     <StyledColorsList>
         {colors.map(item => 
-            <StyledColor key = {item.id} onClick={()=> console.log(item.color)} >{item.color} 
+            <StyledColor key = {item.id} onClick={()=> this.setState({currentColor:item.color})} >{item.color} 
             </StyledColor>
             )}
                     </StyledColorsList>
