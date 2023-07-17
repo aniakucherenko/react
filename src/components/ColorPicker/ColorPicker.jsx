@@ -16,6 +16,7 @@ export class ColorPicker extends Component {
         const {currentColor } = this.state
         return (
             <StyledBackgroundTheme bgColor={currentColor} >
+                <h1>{this.props.message}</h1>
                 <h1>Current color: {currentColor}</h1>
                 <StyledColorPalette>
                     <StyledColorsList>
