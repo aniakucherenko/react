@@ -2,19 +2,24 @@ import { FlexContainer, StyledButton } from 'components/Counter/Counter.styled'
 import React, { Component } from 'react'
 import { StyledInput, StyledLabel, StyledLoginForm, StyledTitle } from './RegisterForm.styled'
 
-export class RegisterForm extends Component {
-    state = {
-        name: '',
+const INITIAL_STATE = {
+    name: '',
         password: '',
         email: '',
         age: 1,
         agree: false,
         gender: 'female',
+}
+
+export class RegisterForm extends Component {
+    state = {
+        ...INITIAL_STATE
     }
 
 handleSubmit = e => {
     e.preventDefault()
     console.log (this.state)
+    this.setState(INITIAL_STATE)
 }
 // handleChangeName = e => {
 //     this.setState({ name: e.target.value })
