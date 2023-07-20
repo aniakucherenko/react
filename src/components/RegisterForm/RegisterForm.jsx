@@ -2,19 +2,20 @@ import { FlexContainer, StyledButton } from 'components/Counter/Counter.styled'
 import React, { Component } from 'react'
 import { StyledInput, StyledLabel, StyledLoginForm, StyledTitle } from './RegisterForm.styled'
 
-export class RegisterForm extends Component {
-  state= {
-  }
-
-handleSubmit = (e) => {
+export const RegisterForm = () => {
+  
+const handleSubmit = e => {
     e.preventDefault()
-    console.log('send form')
+    const form = e.target
+    const name = e.target.name.value
+    const email = e.target.email.value
+    console.log({name, email})
+    form.reset()
 }
 
-  render () {
     return (
    <FlexContainer>
-    <StyledLoginForm onSubmit={this.handleSubmit}>
+    <StyledLoginForm onSubmit={handleSubmit}>
         <StyledTitle>Register</StyledTitle>
         <StyledLabel>
             Name:
@@ -36,4 +37,4 @@ handleSubmit = (e) => {
    </FlexContainer>
     )
   }
-}
+
