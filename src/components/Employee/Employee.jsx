@@ -7,6 +7,7 @@ export class Employees extends Component {
  state= {
   users: userData,
   filterStr: 'React',
+  openToWork: false,
  } 
 
  handleChangeFilter = e => {
@@ -19,20 +20,28 @@ export class Employees extends Component {
   })
  }
 
+ handleChangeAvailableUsers = () => {
+  this.setState(prevState => ({openToWork: !prevState.openToWork}))
+ }
+
  getFilteredData = () => {
-  const { users, filterStr } = this.state
-return users.filter(el => el.name.includes(filterStr))
+  const { users, filterStr, openToWork } = this.state
+return users.filter(el => el.name.toUpperCase().includes(filterStr.toUpperCase().trim())
+)
+.filter(el => (!openToWork ? el : el.isOpenToWork) )
  }
 
   render() {
-    const {filterStr} = this.state
+    const {filterStr, openToWork} = this.state
     const filteredData = this.getFilteredData()
     console.log(filteredData);
   return (
     <> 
     <EmployeeFilter 
+    openToWork={openToWork}
     filterValue={filterStr}
     onFilterChange={this.handleChangeFilter} 
+    onChangeCheckboxFilter = {this.handleChangeAvailableUsers}
     />
     <EmployeeList deleteUser={this.handleDelete} users={filteredData}/> 
     </>
