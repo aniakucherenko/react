@@ -10,7 +10,6 @@ export class Employees extends Component {
  } 
 
  handleChangeFilter = e => {
-  console.log(e.target.value)
   this.setState({filterStr: e.target.value})
  }
 
@@ -20,17 +19,22 @@ export class Employees extends Component {
   })
  }
 
- 
+ getFilteredData = () => {
+  const { users, filterStr } = this.state
+return users.filter(el => el.name.includes(filterStr))
+ }
 
   render() {
     const {filterStr} = this.state
+    const filteredData = this.getFilteredData()
+    console.log(filteredData);
   return (
     <> 
     <EmployeeFilter 
     filterValue={filterStr}
     onFilterChange={this.handleChangeFilter} 
     />
-    <EmployeeList deleteUser={this.handleDelete} users={this.state.users}/> 
+    <EmployeeList deleteUser={this.handleDelete} users={filteredData}/> 
     </>
   )
 }
