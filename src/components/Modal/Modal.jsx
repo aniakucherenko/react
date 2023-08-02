@@ -2,13 +2,20 @@ import React, { Component } from 'react'
 import { CloseButton, ModalContent, ModalWrapper } from './Modal.styled'
 
 class Modal extends Component {
+  intervalID = null
+  timeoutId = null
   componentDidMount() {
-    console.log('Modal is mount');
-
+    // console.log('Modal is mount');
     document.addEventListener('keydown', this.handleKeydown)
+    this.timeoutId = this.intervalID = setInterval(() => {
+   console.log(new Date().toLocaleTimeString());
+    }, 1000)
   }
 componentWillUnmount(){
-  console.log('Unmount');
+  document.removeEventListener('keydown', this.handleKeydown)
+  // console.log('Unmount');
+  clearInterval(this.intervalID)
+  clearTimeout(this.timeoutId)
 }
 handleKeydown = e => {
  if (e.key === 'Escape') {
@@ -20,8 +27,8 @@ handleOutsideClick = (e) => {
   if (e.target === e.currentTarget){
     this.props.onClose()
   }
-  console.log('target ====>', e.target)
-  console.log('currentTarget ====>', e.currentTarget)
+  // console.log('target ====>', e.target)
+  // console.log('currentTarget ====>', e.currentTarget)
   
 }
 
