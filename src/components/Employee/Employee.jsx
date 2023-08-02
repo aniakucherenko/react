@@ -4,6 +4,7 @@ import userData from './../../assets/users.json'
 import { EmployeeFilter } from './EmployeeFilter'
 
 import Modal from 'components/Modal/Modal'
+import { StyledButton } from 'components/Counter/Counter.styled'
 
 export class Employees extends Component {
  state = {
@@ -15,7 +16,7 @@ export class Employees extends Component {
  } 
 
  componentDidMount() {
-  console.log('Component was mount');
+  // console.log('Component was mount');
   let users = window.localStorage.getItem('users')
   if(users){
     this.setState({users: users})
@@ -31,7 +32,7 @@ export class Employees extends Component {
     console.log('You changed amount of users');
     window.localStorage.setItem('users',JSON.stringify(this.state.users))
   } else {
-    console.log('update');
+    // console.log('update');
   }
  }
 
@@ -86,17 +87,12 @@ return users.filter(user => user.name.toUpperCase().includes(filterStr.toUpperCa
     (
       <Modal onClose ={this.toggleModal}>
         <h1>HELLO! IT IS MODAL</h1>
+        <StyledButton size='1rem' onClick={this.toggleModal}>CLOSE</StyledButton>
       </Modal>
  ) : null}
  </>
 
-    // <Modal onClose={this.toggleModal}>
-    //   <h1>Hello it is Modal!</h1>
-    //   <StyledButton size='1rem' onClick={this.toggleModal}>
-		// 					CLOSE
-		// 				</StyledButton>
-    // </Modal> 
-   
+
   )
 }
 }
