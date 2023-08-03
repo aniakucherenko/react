@@ -9,6 +9,20 @@ export class ColorPicker extends Component {
     colors: colorsData,
     currentColor: 'white'
   }
+ componentDidMount(){
+  console.log('Color picker is ready');
+ } 
+ componentDidUpdate(){
+  console.log('UPDATE');
+ }
+shouldComponentUpdate(nextProps, nextState) {
+  return nextState.currentColor !== this.state.currentColor
+}
+
+handleClick = color => {
+  this.setState({currentColor: color})
+}
+
 
 
     render () {

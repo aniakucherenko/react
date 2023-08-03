@@ -12,9 +12,9 @@ import Modal from 'components/Modal/Modal';
 export const App = () => {
   return (
     <> 
-    <Employees/>
+    {/* <Employees/>
    <RegisterForm/>
-    <ToDoList />
+    <ToDoList /> */}
       <ColorPicker message = 'Color picker'/>
       <Counter />
       
