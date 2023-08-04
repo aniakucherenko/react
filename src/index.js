@@ -1,25 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { App } from 'App';
-import './index.css';
-import {createGlobalStyle} from 'styled-components'
+import React from 'react'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import ReactDOM from 'react-dom/client'
+import {App} from './App'
 
 
-const Global = createGlobalStyle`
-body{
-  margin: 0;
-  padding: 0;
-}
-p{
-  padding-left:20px
-}
+const root = ReactDOM.createRoot(document.getElementById('root'))
 
-`
+root.render(
+	<>
+		<App />
+		{/* <Global /> */}
+		<ToastContainer autoClose={1000} />
+	</>
+)
 
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-    <Global />
-  </React.StrictMode>
-);

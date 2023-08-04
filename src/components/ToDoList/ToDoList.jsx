@@ -1,19 +1,53 @@
 import React, { Component } from 'react'
 import { StyledInput, StyledTodo, StyledTodoList } from './ToDoList.styled'
 import { StyledButton } from 'components/Counter/Counter.styled'
-
-import todoData from './../../assets/todos.json'
+import  {toast}  from 'react-toastify';
+import { getAllTodos } from 'services/todoApi';
 
 export class ToDoList extends Component {
 state = {
- tasks: todoData,
+ tasks: [],
  inputValue: '',
+ page: 1,
+}
+componentDidMount() {
+   this.getData()
+//    toast.success('Data was updated')
 }
 
-handleToggleToDo = id => {
+componentDidUpdate(prevProps, prevState) {
+ const { page } = this.state
+ if (page !== prevState.page) {
+    this.getData()
+    toast.info('Data was update')
+ }
+}
+
+getData = async () => {
+    const { page } = this.state
+    try {
+        const { data } = await getAllTodos ({ 
+            _page: page, })
+         console.log(data);
+        this.setState(prevState => ({
+            tasks: [...prevState.tasks, ...data],
+        }))
+       
+    } catch (error) {
+        console.log(error);
+        toast.error('Try again!')
+    }
+ } 
+
+handleLoadMore = () => {
+    this.setState(prevState => ({page: prevState.page + 1}))
+}
+
+handleToggleToDo = id => { 
 console.log(id)
 this.setState(prevState => ({
-    tasks: prevState.tasks.map(task => task.id === id ? {...task, completed: !task.completed} : task)
+    tasks: prevState.tasks.map(task => task.id === id ? {
+        ...task, completed: !task.completed} : task)
 }))
 }
 
@@ -22,7 +56,7 @@ handleDelete = (id) => {
  const newArray = this.state.tasks.filter(el => el.id !== id)
  this.setState({tasks:newArray})
 }
-
+ 
 handleAddToDo = () => {
     console.log('add')
     this.setState({tasks: [
@@ -30,50 +64,68 @@ handleAddToDo = () => {
         {
             id:crypto.randomUUID(),
             todo: this.state.inputValue,
-            completed:false,
-        }
-    ]})
+            completed: false,
+        },
+    ],
+})
 }
 
 handleResetToDo = () => {
-this.setState({tasks: []})
+this.setState({ tasks: [] })
 }
 
-
-    render(){
-        const {tasks, inputValue} = this.state
-        return (
-<div>
-      <StyledTodoList>
-        <StyledInput type ='text' value={inputValue} onChange = { e=> this.setState({inputValue: e.target.value})}/>
-        <StyledButton onClick = {this.handleAddToDo}>Add
-        </StyledButton>
-        {tasks.map(item => (<StyledTodo key= {item.id}>
-            <input type='checkbox' checked={item.completed} onChange={() =>this.handleToggleToDo(item.id)}/>
-            <span>{item.todo}</span>
-            <StyledButton size = '18px' onClick={()=> this.handleDelete(item.id)}>Delete</StyledButton>
-        </StyledTodo>))}
-        <button onClick={this.handleResetToDo}>Clear</button>
-      </StyledTodoList>
-    </div>
-        )
-    }
+  
+	render() {
+		const { tasks, inputValue } = this.state
+		return (
+			<div>
+				<StyledTodoList>
+					<StyledInput
+						type='text'
+						value={inputValue}
+						onChange={e => this.setState({ inputValue: e.target.value })}
+					/>
+					<StyledButton onClick={this.handleAddTodo}>Add</StyledButton>
+					{tasks.map(item => (
+						<StyledTodo key={item.id}>
+							<input
+								type='checkbox'
+								checked={item.completed}
+								onChange={() => this.handleToggleTodo(item.id)}
+							/>
+							<span>
+								{item.id}.{item.title}
+							</span>
+							<StyledButton
+								size='18px'
+								onClick={() => this.handleDelete(item.id)}
+							>
+								Delete
+							</StyledButton>
+						</StyledTodo>
+					))}
+					<button onClick={this.handleLoadMore}>Load More</button>
+				</StyledTodoList>
+			</div>
+		)
+	}
 }
 
-// export const ToDoList = () => {
-//   return (
-    // <div>
-    //   <StyledTodoList>
-    //     <StyledInput type ='text'/>
-    //     <StyledButton>Add
-    //     </StyledButton>
-    //     {[].map(item => (<StyledTodo>
-    //         <input type='checkbox'/>
-    //         <span>todo</span>
-    //         <StyledButton size = '18px'>Delete</StyledButton>
-    //     </StyledTodo>))}
-    //     <button>Clear</button>
-    //   </StyledTodoList>
-    // </div>
-//   )
+// export const TodoList = () => {
+// return (
+// 	<div>
+// 		<StyledTodoList>
+// 			<StyledInput type='text' />
+// 			<StyledButton>Add</StyledButton>
+// 			{[].map(item => (
+// 				<StyledTodo>
+// 					<input type='checkbox' />
+// 					<span>todo</span>
+// 					<StyledButton size='18px'>Delete</StyledButton>
+// 				</StyledTodo>
+// 			))}
+// 			<button>Clear</button>
+// 		</StyledTodoList>
+// 	</div>
+// )
 // }
