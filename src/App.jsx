@@ -1,3 +1,4 @@
+import { GitRepos } from 'components/GitRepos/GitRepos';
 import { ToDoList } from 'components/ToDoList/ToDoList';
 import React from 'react'
 
@@ -5,7 +6,8 @@ import React from 'react'
 export const App = () => {
   return (
     <div>
-<ToDoList></ToDoList>
+      <GitRepos />
+{/* <ToDoList></ToDoList> */}
 
 
 </div>

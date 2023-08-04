@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StyledInput, StyledTodo, StyledTodoList } from './ToDoList.styled'
 import { StyledButton } from 'components/Counter/Counter.styled'
 import  {toast}  from 'react-toastify';
-import { getAllTodos } from 'services/todoApi';
+import { getAllTodos } from 'services/api';
 
 export class ToDoList extends Component {
 state = {
@@ -12,7 +12,7 @@ state = {
 }
 componentDidMount() {
    this.getData()
-//    toast.success('Data was updated')
+   toast.success('Data was created')
 }
 
 componentDidUpdate(prevProps, prevState) {
