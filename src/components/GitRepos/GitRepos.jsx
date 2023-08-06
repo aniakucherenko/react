@@ -5,15 +5,17 @@ import { repos } from 'assets/repos'
 import {fetchRepos} from '../../services/api'
 
 export class GitRepos extends Component {
-    state={
+    state = {
         repos: [],
         loading: false,
-        error: null,
+        error: null, 
+        query: ''
     }
-    componentDidMount(){}
-
-
-fetchRepos = async () => {
+    componentDidMount(){
+        this.fetchData()
+     
+    }
+fetchData = async () => {
     try {
      const {data} = await fetchRepos({})
     }
@@ -21,11 +23,14 @@ fetchRepos = async () => {
       console.log(error)
     }
 }
-
-    render() {
+handleChangeQuery = (query) => {
+    this.setState({ query: query })
+}
+render() {
+        const { query } = this.state
   return (
     <>
-        <GitHeader/>
+        <GitHeader handleChangeQuery={this.handleChangeQuery}/>
             <GitReposList repos={ repos } />
         </>
   )

@@ -18,7 +18,7 @@ export const getAllTodos = async searchParams => {
  return data
 }
 
-export const fetchRepos = async params => {
+export const fetchRepos = async params  => {
  const data = await reposApi.get('/repositories', {
  params: {
     per_page: 8,
