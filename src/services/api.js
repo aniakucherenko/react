@@ -22,8 +22,8 @@ export const fetchRepos = async params  => {
  const data = await reposApi.get('/repositories', {
  params: {
     per_page: 8,
-    q: 'React',
-    ...params
+    ...params,
+   
  },
 })
 return data

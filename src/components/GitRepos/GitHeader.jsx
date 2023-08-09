@@ -9,11 +9,15 @@ handleChangeValue = e => {
     this.setState({value: e.target.value})
 }
 handleSubmit = (e) => {
+    const {handleChangeQuery} = this.props
     e.preventDefault()
-    this.props.handleChangeQuery(this.state.value)
+    handleChangeQuery(this.state.value)
+    // this.props.handleChangeQuery(this.state.value)
     this.setState ({ value: ''})  
-} 
+}  
     render () {
+        console.log(this.props)
+        const {value} = this.state
           return (
     <StyledHeader>
     <h1>Welcome to GitRepos</h1>

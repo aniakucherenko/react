@@ -11,13 +11,22 @@ export class GitRepos extends Component {
         error: null, 
         query: ''
     }
-    componentDidMount(){
-        this.fetchData()
-     
+    // componentDidMount(){
+    //     this.fetchData()
+    // }
+    componentDidUpdate (_, prevState) {
+        const {query} = this.state
+        if(query !== prevState.query) {
+            this.fetchData()
+
+        }
     }
+
 fetchData = async () => {
     try {
-     const {data} = await fetchRepos({})
+     const {data} = await fetchRepos({ q: this.state.query })
+    //  console.log(data)
+     this.setState({ repos: data.items })
     }
     catch(error) {
       console.log(error)
@@ -27,11 +36,11 @@ handleChangeQuery = (query) => {
     this.setState({ query: query })
 }
 render() {
-        const { query } = this.state
+        // const { query } = this.state
   return (
     <>
-        <GitHeader handleChangeQuery={this.handleChangeQuery}/>
-            <GitReposList repos={ repos } />
+        <GitHeader handleChangeQuery={this.handleChangeQuery} message='1111' />
+            <GitReposList repos={ this.state.repos } />
         </>
   )
  }
